@@ -52,5 +52,13 @@ describe Graph do
 
       expect(g.topological_sort).to eq(expected)
     end
+
+    it "raises an UnsortableCyclicGraphError when the graph has cycles" do
+      g = Graph.new([
+        [1, 2],
+        [2, 1]
+      ])
+      expect { g.topological_sort }.to raise_error(UnsortableCyclicGraphError)
+    end
   end
 end

@@ -1,3 +1,5 @@
+UnsortableCyclicGraphError = Class.new(StandardError)
+
 class Graph
   attr_reader :edges, :nodes
 
@@ -11,6 +13,9 @@ class Graph
       []
     else
       start_nodes = nodes.select { |n| incoming(n).empty? }
+      if start_nodes.empty?
+        raise UnsortableCyclicGraphError
+      end
       removed_edges = start_nodes.map { |n| outgoing(n) }.flatten(1)
 
       unsorted_graph = Graph.new(edges - removed_edges, nodes - start_nodes)
