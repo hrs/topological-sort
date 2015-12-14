@@ -61,4 +61,15 @@ describe Graph do
       expect { g.topological_sort }.to raise_error(UnsortableCyclicGraphError)
     end
   end
+
+  describe "#cyclic?" do
+    it "returns false for acyclic graphs" do
+      g = Graph.new([[1, 2], [2, 3]])
+      expect(g).to_not be_cyclic
+    end
+    it "returns true for cyclic graphs" do
+      g = Graph.new([[1, 2], [2, 1]])
+      expect(g).to be_cyclic
+    end
+  end
 end

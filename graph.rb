@@ -24,6 +24,13 @@ class Graph
     end
   end
 
+  def cyclic?
+    topological_sort
+    false
+  rescue UnsortableCyclicGraphError
+    true
+  end
+
   def outgoing(node)
     edges.select { |e| node == from(e) }
   end
